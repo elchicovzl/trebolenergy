@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { strings } from "@/app/lib/strings";
-// import { submitRSVP } from '../actions/submitRSVP';
+import { submitRSVP } from '../actions/submitRSVP';
 import { useToast } from "@/hooks/use-toast";
 
 export default function RSVPForm() {
@@ -29,35 +29,35 @@ export default function RSVPForm() {
 
     console.log(formData, "formData");
 
-    // const result = await submitRSVP(formData);
+    const result = await submitRSVP(formData);
 
-    // if (result.success) {
-    //   toast({
-    //     title: "Success",
-    //     description: strings.thankYouMessage,
-    //   })
-    //   // Reset form
-    //   setName('');
-    //   setEmail('');
-    //   setAccompany('1');
-    //   setAttendance('yes');
-    //   setErrors({});
-    // } else {
-    //   toast({
-    //     title: "Error",
-    //     description: result.message,
-    //     variant: "destructive",
-    //   })
-    //   if (result.errors) {
-    //     setErrors(result.errors);
-    //   } else {
-    //     toast({
-    //       title: "Error",
-    //       description: result.message,
-    //       variant: "destructive",
-    //     })
-    //   }
-    // }
+    if (result.success) {
+      toast({
+        title: "Success",
+        description: strings.thankYouMessage,
+      });
+      // Reset form
+      setName("");
+      setEmail("");
+      setAccompany("1");
+      setAttendance("yes");
+      setErrors({});
+    } else {
+      toast({
+        title: "Error",
+        description: result.message,
+        variant: "destructive",
+      });
+      if (result.errors) {
+        setErrors(result.errors);
+      } else {
+        toast({
+          title: "Error",
+          description: result.message,
+          variant: "destructive",
+        });
+      }
+    }
   };
 
   const openGoogleMaps = () => {
@@ -107,6 +107,7 @@ export default function RSVPForm() {
             onChange={(e) => setName(e.target.value)}
             required
           />
+          {/* Show error message if there is one */}
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name[0]}</p>
           )}
@@ -120,6 +121,7 @@ export default function RSVPForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+          {/* Error message if there is one */}
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email[0]}</p>
           )}
