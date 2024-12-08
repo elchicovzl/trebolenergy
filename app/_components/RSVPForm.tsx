@@ -8,23 +8,33 @@ import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { strings } from "@/app/lib/strings";
-import { submitRSVP } from '../actions/submitRSVP';
+import { submitRSVP } from "../actions/submitRSVP";
 import { useToast } from "@/hooks/use-toast";
 
 export default function RSVPForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [accompany, setAccompany] = useState("1");
+  const [accompany, setAccompany] = useState<string | null>(null);
   const [attendance, setAttendance] = useState("yes");
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Check if name is empty
+    if (!name) {
+      setErrors({ name: ["Name is required"] });
+      return;
+    }
+    if (!email) {
+      setErrors({ email: ["Email is required"] });
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
-    formData.append("accompany", accompany);
+    formData.append("accompany", accompany || "0");
     formData.append("attendance", attendance);
 
     console.log(formData, "formData");
@@ -39,23 +49,20 @@ export default function RSVPForm() {
       // Reset form
       setName("");
       setEmail("");
-      setAccompany("1");
+      setAccompany(null);
       setAttendance("yes");
       setErrors({});
     } else {
+      console.log(result.message, "result.message");
       toast({
         title: "Error",
         description: result.message,
         variant: "destructive",
       });
-      if (result.errors) {
-        setErrors(result.errors);
-      } else {
-        toast({
-          title: "Error",
-          description: result.message,
-          variant: "destructive",
-        });
+      if (result.error) {
+        if (result.error.code === "23505") {
+          setErrors({ email: ["Email already exists"] });
+        }
       }
     }
   };
@@ -131,10 +138,9 @@ export default function RSVPForm() {
           <Input
             id="accompany"
             type="number"
-            min="1"
-            value={accompany}
+            min="0"
+            value={accompany || ""}
             onChange={(e) => setAccompany(e.target.value)}
-            required
           />
           {errors.accompany && (
             <p className="text-red-500 text-sm mt-1">{errors.accompany[0]}</p>
