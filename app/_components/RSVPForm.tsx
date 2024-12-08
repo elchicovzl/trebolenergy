@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin } from 'lucide-react'
+import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -62,11 +62,14 @@ export default function RSVPForm() {
 
   const openGoogleMaps = () => {
     const encodedLocation = encodeURIComponent(strings.eventLocation);
-    window.open(`https://www.google.com/maps/search/?api=1&query=${encodedLocation}`, '_blank');
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`,
+      "_blank"
+    );
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
+    <div className="max-w-md mx-auto my-10">
       <h1 className="text-2xl font-bold mb-4">{strings.title}</h1>
       <p className="mb-6">{strings.description}</p>
       <div className="mb-6">
@@ -83,14 +86,14 @@ export default function RSVPForm() {
           defaultMonth={new Date(strings.eventDate)}
           ISOWeek
         />
-            <div className="mt-4">
+        <div className="mt-4">
           <Button
             type="button"
             variant="outline"
             onClick={openGoogleMaps}
             className="w-full"
           >
-            <MapPin className="w-4 h-4 mr-2" />
+            <MapPin className="mr-2" />
             {strings.viewOnMapButton}
           </Button>
         </div>
