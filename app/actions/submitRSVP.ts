@@ -7,10 +7,10 @@ import { supabaseAnon } from "../lib/supabase";
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function submitRSVP(formData: FormData) {
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const accompany = formData.get("accompany") as string;
-  const attendance = formData.get("attendance") as string;
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const accompany = formData.get("accompany");
+  const attendance = formData.get("attendance");
 
   // Use the anonymous client for inserting RSVP
   const { data, error } = await supabaseAnon
@@ -20,7 +20,7 @@ export async function submitRSVP(formData: FormData) {
 
   if (error) {
     console.error("Error inserting RSVP:", error);
-    return { success: false, message: "Failed to submit RSVP" };
+    return { success: false, message: "Failed to submit RSVP", error };
   }
 
   // Send email notification
