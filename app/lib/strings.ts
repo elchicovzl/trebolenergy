@@ -13,5 +13,5 @@ export const strings = {
   noOption: "Sorry, I can't make it",
   submitButton: "Send RSVP",
   thankYouMessage: "Thank you for your response!",
-  viewOnMapButton: "View on Google Maps",
+  viewOnMapButton: "View Location on Google Maps",
 };
