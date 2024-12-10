@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 export async function signIn(prevState: { error: string } | null, formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  console.log(prevState, formData, 'signIn');
 
   const cookieStore = await cookies(); // in next 15 we need to await cookies()
 
