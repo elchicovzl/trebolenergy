@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { strings } from "@/app/lib/strings";
+import { strings } from "@/app/utils/strings";
 import { submitRSVP } from "../actions/submitRSVP";
 import { useToast } from "@/hooks/use-toast";
 
