@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "../utils/supabase/server";
 
 export async function signIn(
-  prevState: { error: string } | null,
+  prevState: { error: string } | null, // add this later when component is built
   formData: FormData
 ) {
   const email = formData.get("email") as string;
@@ -17,11 +17,11 @@ export async function signIn(
     password,
   });
 
+  console.log(data, "data_login");
+
   if (error) {
     return { error: error.message };
   }
-
-  console.log(data, "data_login");
 
   redirect("/admin/rsvps");
 }
