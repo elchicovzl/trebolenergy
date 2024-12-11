@@ -1,19 +1,21 @@
 "use server";
 
-import { supabaseAnon } from "../lib/supabase";
+import { createClient } from "../utils/supabase/server";
+
 // import { Resend } from "resend";
 // import { strings } from "../lib/strings";
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function submitRSVP(formData: FormData) {
+  const supabase = await createClient();
+
   const name = formData.get("name");
   const email = formData.get("email");
   const accompany = formData.get("accompany");
   const attendance = formData.get("attendance");
 
-  // Use the anonymous client for inserting RSVP
-  const { data, error } = await supabaseAnon
+  const { data, error } = await supabase
     .from("rsvps")
     .insert([{ name, email, accompany, attendance }]);
   console.log(data, "data_submitRSVP");
