@@ -1,11 +1,10 @@
 "use server";
 
+import { strings } from "../utils/strings";
 import { createClient } from "../utils/supabase/server";
+import { Resend } from "resend";
 
-// import { Resend } from "resend";
-// import { strings } from "../lib/strings";
-
-// const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function submitRSVP(formData: FormData) {
   const supabase = await createClient();
@@ -26,24 +25,26 @@ export async function submitRSVP(formData: FormData) {
   }
 
   // Send email notification
-  // try {
-  //   await resend.emails.send({
-  //     from: "RSVP <onboarding@resend.dev>",
-  //     to: "your-email@example.com", // Replace with the event organizer's email
-  //     subject: "New RSVP Submission",
-  //     html: `
-  //       <h1>New RSVP Submission</h1>
-  //       <p><strong>Name:</strong> ${name}</p>
-  //       <p><strong>Email:</strong> ${email}</p>
-  //       <p><strong>Number of Guests:</strong> ${accompany}</p>
-  //       <p><strong>Attendance:</strong> ${attendance}</p>
-  //       <p><strong>Event Date:</strong> ${new Date(strings.eventDate).toLocaleDateString()}</p>
-  //     `,
-  //   });
-  // } catch (error) {
-  //   console.error("Error sending email:", error);
-  //   // Note: We don't return an error here because the RSVP was still stored successfully
-  // }
+  if (!strings.sendToEmail) {
+    console.error("No email to send to");
+    return { success: false, message: "No email to send to" };
+  }
+  try {
+    await resend.emails.send({
+      from: "RSVP <onboarding@resend.dev>",
+      to: strings.sendToEmail,
+      subject: "New RSVP Submission",
+      html: `
+        <h1>New RSVP Submission</h1>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Number of Guests:</strong> ${accompany}</p>
+        <p><strong>Attendance:</strong> ${attendance}</p>
+      `,
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
 
   return { success: true, message: "RSVP submitted successfully" };
 }

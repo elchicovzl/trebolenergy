@@ -1,6 +1,7 @@
 export const strings = {
   title: "Wedding RSVP",
-  description: "We're excited to celebrate our special day with you! Please let us know if you can make it.",
+  description:
+    "We're excited to celebrate our special day with you! Please let us know if you can make it.",
   eventDate: "2024-06-15", // YYYY-MM-DD format
   eventDateLabel: "Event Date",
   eventLocation: "Central Park, New York, NY 10022",
@@ -14,4 +15,6 @@ export const strings = {
   submitButton: "Send RSVP",
   thankYouMessage: "Thank you for your response!",
   viewOnMapButton: "View Location on Google Maps",
+  sendFromEmail: "onboarding@resend.dev",
+  sendToEmail: process.env.EMAIL_TO,
 };
