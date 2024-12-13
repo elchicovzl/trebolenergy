@@ -16,18 +16,17 @@ export default function RSVPForm() {
   const [email, setEmail] = useState("");
   const [accompany, setAccompany] = useState<string | null>(null);
   const [attendance, setAttendance] = useState("yes");
-  const [errors, setErrors] = useState<Record<string, string[]>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Check if name is empty
     if (!name) {
-      setErrors({ name: ["Name is required"] });
+      setErrors({ name: "Name is required" });
       return;
     }
     if (!email) {
-      setErrors({ email: ["Email is required"] });
+      setErrors({ email: "Email is required" });
       return;
     }
 
@@ -61,7 +60,7 @@ export default function RSVPForm() {
       });
       if (result.error) {
         if (result.error.code === "23505") {
-          setErrors({ email: ["Email already exists"] });
+          setErrors({ email: "Email already exists" });
         }
       }
     }
@@ -116,7 +115,7 @@ export default function RSVPForm() {
           />
           {/* Show error message if there is one */}
           {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name[0]}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
           )}
         </div>
         <div>
@@ -130,7 +129,7 @@ export default function RSVPForm() {
           />
           {/* Error message if there is one */}
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email[0]}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
           )}
         </div>
         <div>
@@ -142,9 +141,6 @@ export default function RSVPForm() {
             value={accompany || ""}
             onChange={(e) => setAccompany(e.target.value)}
           />
-          {errors.accompany && (
-            <p className="text-red-500 text-sm mt-1">{errors.accompany[0]}</p>
-          )}
         </div>
         <div>
           <Label>{strings.rsvpLabel}</Label>
@@ -158,9 +154,6 @@ export default function RSVPForm() {
               <Label htmlFor="no">{strings.noOption}</Label>
             </div>
           </RadioGroup>
-          {errors.attendance && (
-            <p className="text-red-500 text-sm mt-1">{errors.attendance[0]}</p>
-          )}
         </div>
         <Button type="submit">{strings.submitButton}</Button>
       </form>
