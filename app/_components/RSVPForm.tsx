@@ -17,6 +17,7 @@ export default function RSVPForm() {
   const [accompany, setAccompany] = useState<string | null>(null);
   const [attendance, setAttendance] = useState("yes");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -38,6 +39,7 @@ export default function RSVPForm() {
 
     console.log(formData, "formData");
 
+    setIsLoading(true);
     const result = await submitRSVP(formData);
 
     if (result.success) {
@@ -64,6 +66,7 @@ export default function RSVPForm() {
         }
       }
     }
+    setIsLoading(false);
   };
 
   const openGoogleMaps = () => {
@@ -155,7 +158,9 @@ export default function RSVPForm() {
             </div>
           </RadioGroup>
         </div>
-        <Button type="submit">{strings.submitButton}</Button>
+        <Button disabled={isLoading} type="submit">
+          {isLoading ? "Sending..." : strings.submitButton}
+        </Button>
       </form>
     </div>
   );
