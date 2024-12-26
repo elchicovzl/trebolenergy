@@ -29,21 +29,23 @@ export async function submitRSVP(formData: FormData) {
     console.error("No email to send to");
     return { success: false, message: "No email to send to" };
   }
-  try {
-    await resend.emails.send({
-      from: "RSVP <onboarding@resend.dev>",
-      to: strings.sendToEmail,
-      subject: "New RSVP Submission",
-      html: `
+  if (!error) {
+    try {
+      await resend.emails.send({
+        from: "RSVP <onboarding@resend.dev>",
+        to: strings.sendToEmail,
+        subject: "New RSVP Submission",
+        html: `
         <h1>New RSVP Submission</h1>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Number of Guests:</strong> ${accompany}</p>
         <p><strong>Attendance:</strong> ${attendance}</p>
       `,
-    });
-  } catch (error) {
-    console.error("Error sending email:", error);
+      });
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   }
 
   return { success: true, message: "RSVP submitted successfully" };
