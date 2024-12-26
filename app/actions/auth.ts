@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "../utils/supabase/server";
 
 export async function signIn(
-  prevState: { error: string } | null, // add this later when component is built
+  prevState: { error: string } | null,
   formData: FormData
 ) {
   const email = formData.get("email") as string;

@@ -37,8 +37,6 @@ export default function RSVPForm() {
     formData.append("accompany", accompany || "0");
     formData.append("attendance", attendance);
 
-    console.log(formData, "formData");
-
     setIsLoading(true);
     const result = await submitRSVP(formData);
 
@@ -83,9 +81,6 @@ export default function RSVPForm() {
       <p className="mb-6">{strings.description}</p>
       <div className="mb-6">
         <Label>{strings.eventDateLabel}</Label>
-        {/* <p className="text-lg font-semibold">
-          {new Date(strings.eventDate).toLocaleDateString()}
-        </p> */}
         <Calendar
           mode="single"
           selected={new Date(strings.eventDate)}

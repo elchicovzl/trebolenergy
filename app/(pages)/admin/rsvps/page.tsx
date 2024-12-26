@@ -23,7 +23,6 @@ export default async function RSVPsPage() {
         <div className="flex items-center gap-2">
           <Link href="/">
             <Button variant="outline">
-              {/* <LucideStepBack /> */}
               <House />
             </Button>
           </Link>
