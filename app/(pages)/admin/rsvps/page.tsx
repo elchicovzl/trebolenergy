@@ -1,6 +1,5 @@
 import { getRSVPs } from "@/app/actions/getRSVPs";
 import { signOut } from "@/app/actions/auth";
-import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { RSVPTable } from "@/app/_components/RSVPTable";
 import { House } from "lucide-react";
@@ -10,9 +9,6 @@ export default async function RSVPsPage() {
   const { success, data, message } = await getRSVPs();
 
   if (!success) {
-    if (message === "Not authenticated") {
-      redirect("/login");
-    }
     return <div className="container mx-auto mt-8 p-4">Error: {message}</div>;
   }
 
