@@ -52,7 +52,6 @@ export default function RSVPForm() {
       setAttendance("yes");
       setErrors({});
     } else {
-      console.log(result.message, "result.message");
       toast({
         title: "Error",
         description: result.message,
