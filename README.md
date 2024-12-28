@@ -1,8 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Full Stack RSVP App | Next.js 15, Supabase and Resend - Repository from my YouTube tutorial
 
-## Getting Started
+## Technologies used
 
-First, run the development server:
+- [Next.js](https://nextjs.org/)
+- [Supabase](https://supabase.com/)
+- [Resend](https://resend.com)
+- [Shadcn](https://ui.shadcn.com/)
+  
+## Getting started
+
+First, add your ENV's to `.env.local` file:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key/api-key
+RESEND_API_KEY=your-resend-api-key
+EMAIL_TO=email where you'll receive notifications. It needs to be the email you used to create the API key in Resend.
+```
+Then, install the dependencies:
+  
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -16,18 +43,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
