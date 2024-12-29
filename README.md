@@ -1,5 +1,8 @@
 # Full Stack RSVP App | Next.js 15, Supabase and Resend - Repository from my YouTube tutorial
 
+[![Video](https://github.com/user-attachments/assets/874a23d2-8e8a-4b31-9185-d39dee1d4197)
+](https://youtu.be/du_xO7fNdos)
+
 ## Technologies used
 
 - [Next.js](https://nextjs.org/)
